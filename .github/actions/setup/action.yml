@@ -1,5 +1,9 @@
 name: Setup Java and Maven
 description: Common setup for Java and Maven
+inputs:
+  GITHUB_TOKEN:
+    required: true
+    description: "GitHub token for Maven authentication"
 runs:
   using: "composite"
   steps:
@@ -13,6 +17,7 @@ runs:
         distribution: 'temurin'
 
     - name: Configure Maven for GitHub Packages
+      shell: bash
       run: |
         mkdir -p ~/.m2
         cat <<EOF > ~/.m2/settings.xml
@@ -21,7 +26,7 @@ runs:
             <server>
               <id>github</id>
               <username>${{ github.actor }}</username>
-              <password>${{ secrets.GITHUB_TOKEN }}</password>
+              <password>${{ inputs.GITHUB_TOKEN }}</password>
             </server>
           </servers>
         </settings>
