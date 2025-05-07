@@ -9,6 +9,7 @@ jobs:
   build-java-lambda-hello:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3        # <-- Add this line
       - uses: ./.github/actions/setup
       - name: Build java-lambda-hello
         run: |
@@ -18,6 +19,7 @@ jobs:
   build-java-lambda-sum:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3        # <-- Add this line
       - uses: ./.github/actions/setup
       - name: Build java-lambda-sum
         run: |
