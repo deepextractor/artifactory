@@ -9,10 +9,12 @@ jobs:
   setup-environment:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - &checkout_step
+        name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up JDK
+      - &jdk_setup_step
+        name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
@@ -21,7 +23,8 @@ jobs:
       - name: Install Maven
         run: sudo apt-get update && sudo apt-get install -y maven
 
-      - name: Configure Maven for GitHub Packages
+      - &maven_config
+        name: Configure Maven for GitHub Packages
         run: |
           mkdir -p ~/.m2
           cat <<EOF > ~/.m2/settings.xml
@@ -35,16 +38,15 @@ jobs:
             </servers>
           </settings>
           EOF
-        id: maven_config
 
   build-java-lambda-hello:
     needs: setup-environment
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'java-lambda-hello')
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - *checkout_step
+      - *jdk_setup_step
+      - *maven_config
       - name: Build java-lambda-hello
         run: |
           cd java-lambda-hello
@@ -55,9 +57,9 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'java-lambda-sum')
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - *checkout_step
+      - *jdk_setup_step
+      - *maven_config
       - name: Build java-lambda-sum
         run: |
           cd java-lambda-sum
