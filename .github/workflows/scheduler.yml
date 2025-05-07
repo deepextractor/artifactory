@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Build java-lambda-hello
         run: |
-          cd java-lambda-hello
+          cd ./java-lambda-hello
           mvn deploy
 
   build-java-lambda-sum:
@@ -38,5 +38,5 @@ jobs:
     steps:
       - name: Build java-lambda-sum
         run: |
-          cd java-lambda-sum
+          cd ./java-lambda-sum
           mvn deploy
