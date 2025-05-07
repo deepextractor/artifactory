@@ -28,9 +28,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-          path: java-lambda-hello
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -50,9 +47,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-          path: java-lambda-sum
 
       - name: Set up JDK
         uses: actions/setup-java@v3
