@@ -8,6 +8,7 @@ on:
 jobs:
   build-java-lambda-hello:
     runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'java-lambda-hello')
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
@@ -20,6 +21,7 @@ jobs:
 
   build-java-lambda-sum:
     runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'java-lambda-sum')
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
