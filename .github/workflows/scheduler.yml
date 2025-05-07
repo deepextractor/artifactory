@@ -6,60 +6,19 @@ on:
       - main
 
 jobs:
-  setup-environment:
-    runs-on: ubuntu-latest
-    steps:
-      - &checkout_step
-        name: Checkout code
-        uses: actions/checkout@v3
-
-      - &jdk_setup_step
-        name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Install Maven
-        run: sudo apt-get update && sudo apt-get install -y maven
-
-      - &maven_config
-        name: Configure Maven for GitHub Packages
-        run: |
-          mkdir -p ~/.m2
-          cat <<EOF > ~/.m2/settings.xml
-          <settings>
-            <servers>
-              <server>
-                <id>github</id>
-                <username>${{ github.actor }}</username>
-                <password>${{ secrets.GITHUB_TOKEN }}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
-
   build-java-lambda-hello:
-    needs: setup-environment
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'java-lambda-hello')
     steps:
-      - *checkout_step
-      - *jdk_setup_step
-      - *maven_config
+      - uses: ./.github/actions/setup
       - name: Build java-lambda-hello
         run: |
           cd java-lambda-hello
           mvn deploy
 
   build-java-lambda-sum:
-    needs: setup-environment
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'java-lambda-sum')
     steps:
-      - *checkout_step
-      - *jdk_setup_step
-      - *maven_config
+      - uses: ./.github/actions/setup
       - name: Build java-lambda-sum
         run: |
           cd java-lambda-sum
