@@ -1,0 +1,42 @@
+name: Building Lambda Functions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Maven
+        run: sudo apt-get update && sudo apt-get install -y maven
+
+  build-java-lambda-hello:
+    needs: setup-environment
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'java-lambda-hello')
+    steps:
+      - name: Build java-lambda-hello
+        run: |
+          cd java-lambda-hello
+          mvn deploy
+
+  build-java-lambda-sum:
+    needs: setup-environment
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'java-lambda-sum')
+    steps:
+      - name: Build java-lambda-sum
+        run: |
+          cd java-lambda-sum
+          mvn deploy
