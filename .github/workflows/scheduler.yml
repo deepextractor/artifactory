@@ -21,6 +21,21 @@ jobs:
       - name: Install Maven
         run: sudo apt-get update && sudo apt-get install -y maven
 
+      - name: Configure Maven for GitHub Packages
+        run: |
+          mkdir -p ~/.m2
+          cat <<EOF > ~/.m2/settings.xml
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.GITHUB_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
   build-java-lambda-hello:
     needs: setup-environment
     runs-on: ubuntu-latest
