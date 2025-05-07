@@ -26,9 +26,21 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'java-lambda-hello')
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          path: java-lambda-hello
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
       - name: Build java-lambda-hello
         run: |
-          cd ./java-lambda-hello
+          cd java-lambda-hello
           mvn deploy
 
   build-java-lambda-sum:
@@ -36,7 +48,19 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'java-lambda-sum')
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          path: java-lambda-sum
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
       - name: Build java-lambda-sum
         run: |
-          cd ./java-lambda-sum
+          cd java-lambda-sum
           mvn deploy
