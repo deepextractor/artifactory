@@ -5,14 +5,14 @@ ARTIFACTORY_URL="https://maven.pkg.github.com/deepextractor/"
 ARTIFACTORY_REPO="artifactory"
 ARTIFACT_PATH="com/github/deepextractor/${PACKAGE_NAME}"
 ARTIFACTORY_MAVEN_USER="deepextractor"
-ARTIFACTORY_MAVEN_PASS="${GITHUB_TOKEN}"
+ARTIFACTORY_MAVEN_PASS="${{ secrets.GITHUB_TOKEN }}"
 
 artifact_url="${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACT_PATH}"
 echo "Checking if following artifact is available: ${artifact_url}"
 response_code=$(curl -s -o /dev/null -w "%{http_code}" --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -X HEAD "${artifact_url}")
 echo $response_code
 
-set -e # Enable errexit
+# set -e # Enable errexit
 # function run_sonar(){
 #     set +e
 #     echo "----------------------------------- Running Sonar ----------------------------"
