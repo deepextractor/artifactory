@@ -48,4 +48,4 @@ jobs:
       - name: Build frontend
         run: |
           cd frontend
-          ../deployment/frontend-build.sh
+          ../../deployment/frontend-build.sh
