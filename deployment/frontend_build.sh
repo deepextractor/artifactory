@@ -6,6 +6,8 @@ ARTIFACTORY_REPO="artifactory"
 ARTIFACT_PATH="com/github/deepextractor/${PACKAGE_NAME}"
 ARTIFACTORY_MAVEN_USER="deepextractor"
 ARTIFACTORY_MAVEN_PASS="${{ secrets.GITHUB_TOKEN }}"
+echo "----------------------------------- [PASSWORD] ----------------------------"
+echo ${ARTIFACTORY_MAVEN_PASS}
 
 artifact_url="${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACT_PATH}"
 echo "Checking if following artifact is available: ${artifact_url}"
