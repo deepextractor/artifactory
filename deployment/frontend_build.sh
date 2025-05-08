@@ -29,6 +29,9 @@ else
     echo "---------------------------- Starting Frontend Build ----------------------------"
     npm ci --cache .npm --prefer-offline
     npm run build
-    zip -q -r $PACKAGE_NAME ./dist/frontend/*
+    zip -q -r $PACKAGE_NAME ./dist/*
+    echo $PACKAGE_NAME
+    echo "---------------------------- Frontend Build Completed --------------------------"
     curl -X PUT --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -T $PACKAGE_NAME "https://maven.pkg.github.com/deepextractor/artifactory/com/github/deepextractor/ui/${PACKAGE_NAME}"
+    echo "---------------------------- Frontend Build Uploaded to Artifactory --------------------------"
 fi
