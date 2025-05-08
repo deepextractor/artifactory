@@ -43,8 +43,8 @@ jobs:
           node-version: '22.15.0'
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install zip -y
+          sudo apt-get update
+          sudo apt-get install zip -y
       - name: Build frontend
         run: |
           cd frontend
