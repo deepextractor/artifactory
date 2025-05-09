@@ -12,14 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Go to terraform directory
-        run: cd terraform
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init
-        run: terraform init
+      - name: Initialize Terraform
+        run: |
+          cd terraform
+          terraform init
 
       - name: Terraform Plan
         run: terraform plan
