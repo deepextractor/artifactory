@@ -50,5 +50,5 @@ jobs:
             MY_SECRET: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd frontend
-          bash ../deployment/frontend_build.sh
+          bash ../deployment/scripts/frontend_build.sh
           

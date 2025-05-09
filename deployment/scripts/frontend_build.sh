@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FRONTEND_VERSION="1.0.0"
+FRONTEND_VERSION="1.1.0"
 PACKAGE_NAME=ExtractorFrontend-${FRONTEND_VERSION}.zip
 ARTIFACTORY_URL="https://maven.pkg.github.com/deepextractor/"
 ARTIFACTORY_REPO="artifactory"
@@ -34,6 +34,6 @@ else
     zip -q -r $PACKAGE_NAME ./dist/*
     echo $PACKAGE_NAME
     echo "---------------------------- Frontend Build Completed --------------------------"
-    curl -X PUT --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -T $PACKAGE_NAME "https://maven.pkg.github.com/deepextractor/artifactory/com/github/deepextractor/ui/${PACKAGE_NAME}"
+    curl -X PUT --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -T $PACKAGE_NAME "https://maven.pkg.github.com/deepextractor/artifactory/com/github/deepextractor/${PACKAGE_NAME}"
     echo "---------------------------- Frontend Build Uploaded to Artifactory --------------------------"
 fi
