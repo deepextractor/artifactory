@@ -52,7 +52,7 @@ jobs:
           cd frontend
           bash ../deployment/scripts/frontend_build.sh
 
-  build-and-push:
+  build-python-lambda:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'python-lambda')
     permissions:
