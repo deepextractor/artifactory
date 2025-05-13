@@ -10,6 +10,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.49.0"
     }
+    artifactory = {
+      source  = "github.com/deepextractor/artifactory"
+    }
   }
   required_version = "~> 1.0"
 }
