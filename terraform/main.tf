@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket         = "deepextract-terraform-state-bucket-dev"
-    key            = "ec2/terraform.tfstate"
+    key            = "state/terraform.tfstate"
     region         = "eu-west-1"
     encrypt        = true
   }
@@ -9,13 +9,4 @@ terraform {
 
 provider "aws" {
   region = var.region
-}
-
-resource "aws_s3_bucket" "component_registry" {
-  bucket        = "test-extractor-${var.environment}-${var.region}"
-  force_destroy = true
-  tags = {
-    name = "test-extractor-${var.environment}-${var.region}",
-    accountId = var.account_id
-  }
 }
