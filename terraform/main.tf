@@ -15,6 +15,7 @@ resource "aws_s3_bucket" "component_registry" {
   bucket        = "test-extractor-${var.environment}-${var.region}"
   force_destroy = true
   tags = {
-    Name = "test-extractor-${var.environment}-${var.region}"
+    name = "test-extractor-${var.environment}-${var.region}",
+    accountId = var.account_id
   }
 }

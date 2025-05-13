@@ -5,3 +5,7 @@ variable "region" {
 variable "environment" {
   default = "test"
 }
+
+variable "account_id" {
+  default = "769018977079"
+}
