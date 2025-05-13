@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket         = "test-terraform-state-bucket-dev"
+    bucket         = "deepextract-terraform-state-bucket-dev"
     key            = "ec2/terraform.tfstate"
-    region         = "us-west-2"
+    region         = "eu-west-1"
     encrypt        = true
   }
 }
