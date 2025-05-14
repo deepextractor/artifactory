@@ -25,6 +25,16 @@ else
     mvn versions:set -DnewVersion="${JAVA_LAMBDA_VERSION}" versions:commit
     mvn -T 1C clean package
     echo "---------------------------- Lambda Build Started --------------------------"
-    curl -X PUT --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -T target/${LAMBDA_ARTIFACT}-${JAVA_LAMBDA_VERSION}.jar "${ARTIFACTORY_URL}${ARTIFACTORY_REPO}/${ARTIFACT_PATH}"
-    echo "---------------------------- Lambda Build Completed --------------------------"
+    # Find the exact jar file based on artifactId and version from pom.xml
+    ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+    VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+    JAR_FILE="target/${ARTIFACT_ID}-${VERSION}.jar"
+    echo "Uploading JAR: $JAR_FILE"
+    if [ -f "$JAR_FILE" ]; then
+      curl -X PUT --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -T "$JAR_FILE" "${ARTIFACTORY_URL}${ARTIFACTORY_REPO}/${ARTIFACT_PATH}"
+      echo "---------------------------- Lambda Build Completed --------------------------"
+    else
+      echo "ERROR: JAR file $JAR_FILE not found!"
+      exit 1
+    fi
 fi
