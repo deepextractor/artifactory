@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FRONTEND_VERSION="1.1.0"
+FRONTEND_VERSION="1.2.0"
 ARTIFACT_ID="frontend"
 PACKAGE_NAME=${ARTIFACT_ID}-${FRONTEND_VERSION}.zip
 ARTIFACTORY_URL="https://maven.pkg.github.com/deepextractor/"
