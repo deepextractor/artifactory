@@ -17,7 +17,7 @@ jobs:
       - name: Build java-lambda-hello
         env:
           LAMBDA_ARTIFACT: java-lambda-hello
-          JAVA_LAMBDA_VERSION: 1.0.4
+          JAVA_LAMBDA_VERSION: 1.0.5
         run: |
           bash deployment/scripts/maven_build.sh "$LAMBDA_ARTIFACT" "$JAVA_LAMBDA_VERSION"
 
@@ -32,7 +32,7 @@ jobs:
       - name: Build java-lambda-sum
         env:
           LAMBDA_ARTIFACT: java-lambda-sum
-          JAVA_LAMBDA_VERSION: 1.0.6
+          JAVA_LAMBDA_VERSION: 1.0.7
         run: |
           bash deployment/scripts/maven_build.sh "$LAMBDA_ARTIFACT" "$JAVA_LAMBDA_VERSION"
 

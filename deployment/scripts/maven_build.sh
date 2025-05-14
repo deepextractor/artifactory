@@ -7,7 +7,7 @@ ARTIFACTORY_URL="https://maven.pkg.github.com/deepextractor/"
 ARTIFACTORY_REPO="artifactory"
 ARTIFACT_PATH="com/github/deepextractor/${LAMBDA_ARTIFACT}/${JAVA_LAMBDA_VERSION}/${LAMBDA_ARTIFACT}-${JAVA_LAMBDA_VERSION}.jar"
 ARTIFACTORY_MAVEN_USER="deepextractor"
-ARTIFACTORY_MAVEN_PASS=$MY_SECRET
+ARTIFACTORY_MAVEN_PASS=$GITHUB_TOKEN
 echo "----------------------------------- [PASSWORD] ----------------------------"
 echo ${ARTIFACTORY_MAVEN_PASS}
 
@@ -26,9 +26,7 @@ else
     mvn -T 1C clean package
     echo "---------------------------- Lambda Build Started --------------------------"
     # Find the exact jar file based on artifactId and version from pom.xml
-    ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-    VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-    JAR_FILE="target/${ARTIFACT_ID}-${VERSION}.jar"
+    JAR_FILE="target/${LAMBDA_ARTIFACT}-${JAVA_LAMBDA_VERSION}.jar"
     echo "Uploading JAR: $JAR_FILE"
     if [ -f "$JAR_FILE" ]; then
       curl -X PUT --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -T "$JAR_FILE" "${ARTIFACTORY_URL}${ARTIFACTORY_REPO}/${ARTIFACT_PATH}"
