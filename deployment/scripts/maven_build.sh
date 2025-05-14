@@ -20,9 +20,9 @@ if [[ "${response_code}" -eq 200 ]]; then
     echo "${LAMBDA_ARTIFACT} java lambda versions exists in Artifactory. Skipping Java Build"
 else
     echo "${LAMBDA_ARTIFACT} Artifact does not exist in Artifactory: Starting build"
-    cd lambdas
-    mvn versions:set -f ${LAMBDA_ARTIFACT}/pom.xml -DnewVersion="${JAVA_LAMBDA_VERSION}" versions:commit
-    cd ${LAMBDA_ARTIFACT}
+    cd lambdas/${LAMBDA_ARTIFACT}
+    echo "JAVA_LAMBDA_VERSION: ${JAVA_LAMBDA_VERSION}"
+    mvn versions:set -DnewVersion="${JAVA_LAMBDA_VERSION}" versions:commit
     mvn -T 1C clean package
     echo "---------------------------- Lambda Build Started --------------------------"
     curl -X PUT --user $ARTIFACTORY_MAVEN_USER:$ARTIFACTORY_MAVEN_PASS -T ./target/${LAMBDA_ARTIFACT}-${JAVA_LAMBDA_VERSION}.jar "${ARTIFACTORY_URL}${ARTIFACTORY_REPO}/${ARTIFACT_PATH}"
