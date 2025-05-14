@@ -6,7 +6,7 @@ ARTIFACTORY_URL="https://maven.pkg.github.com/deepextractor/"
 ARTIFACTORY_REPO="artifactory"
 ARTIFACT_PATH="com/github/deepextractor/${ARTIFACT_ID}/${FRONTEND_VERSION}/${PACKAGE_NAME}"
 ARTIFACTORY_MAVEN_USER="deepextractor"
-ARTIFACTORY_MAVEN_PASS=$MY_SECRET
+ARTIFACTORY_MAVEN_PASS=$GITHUB_TOKEN
 echo "----------------------------------- [PASSWORD] ----------------------------"
 echo ${ARTIFACTORY_MAVEN_PASS}
 
