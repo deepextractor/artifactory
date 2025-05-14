@@ -21,7 +21,7 @@ if [[ "${response_code}" -eq 200 ]]; then
 else
     echo "${LAMBDA_ARTIFACT} Artifact does not exist in Artifactory: Starting build"
     cd lambdas
-    # mvn versions:set -DnewVersion="${JAVA_LAMBDA_VERSION}" versions:commit
+    mvn versions:set -f ${LAMBDA_ARTIFACT}/pom.xml -DnewVersion="${JAVA_LAMBDA_VERSION}" versions:commit
     cd ${LAMBDA_ARTIFACT}
     mvn -T 1C clean package
     echo "---------------------------- Lambda Build Started --------------------------"
