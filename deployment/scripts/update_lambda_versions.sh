@@ -3,7 +3,7 @@
 LAMBDA_ARTIFACT=$1
 JAVA_LAMBDA_VERSION=$2
 
-echo "${LAMBDA_ARTIFACT}=${JAVA_LAMBDA_VERSION}" >> deployment/versions/${LAMBDA_ARTIFACT}.txt
+echo "${LAMBDA_ARTIFACT}=${JAVA_LAMBDA_VERSION}" > deployment/versions/${LAMBDA_ARTIFACT}.txt
 
 git config --global user.name "github-actions[bot]"
 git config --global user.email "github-actions[bot]@users.noreply.github.com"
