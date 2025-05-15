@@ -11,9 +11,13 @@ variable "account_id" {
 }
 
 variable "vpc_security_group_ids" {
-  default = "769018977079"
+  type = list(string)
+}
+
+variable "vpc_identifier" {
+  type = string
 }
 
 variable "vpc_subnet_ids" {
-  default = "769018977079"
+  type = list(string)
 }

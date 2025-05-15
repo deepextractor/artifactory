@@ -1,4 +1,4 @@
-######################################### Management lambda ##########################################
+######################################### Hello lambda ##########################################
 resource "aws_lambda_function" "hello_lambda" {
   architectures = ["x86_64"]
   description   = "Lambda that prints hello"
@@ -7,7 +7,7 @@ resource "aws_lambda_function" "hello_lambda" {
   handler       = "HelloLambda"
   memory_size   = "512"
   package_type  = "Zip"
-  role          = ""
+  role          = "arn:aws:iam::${var.account_id}:role/Extractor"
   runtime       = "java11"
   timeout       = "120"
   publish       = true

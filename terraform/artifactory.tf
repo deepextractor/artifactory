@@ -1,7 +1,7 @@
 # Configure the Artifactory provider
 provider "artifactory" {
   url     = "https://maven.pkg.github.com/deepextractor/"
-  access_token = ""
+  access_token = var.ARTIFACTORY_TOKEN
 }
 
 resource "null_resource" "pre_provision" {
