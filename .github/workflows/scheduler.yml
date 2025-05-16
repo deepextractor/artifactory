@@ -25,6 +25,7 @@ jobs:
 
   build-java-lambda-sum:
     runs-on: ubuntu-latest
+    needs: build-java-lambda-hello
     if: contains(github.event.head_commit.message, 'java-lambda-sum')
     steps:
       - uses: actions/checkout@v3
@@ -40,28 +41,9 @@ jobs:
           bash deployment/scripts/maven_build.sh "$LAMBDA_ARTIFACT" "$JAVA_LAMBDA_VERSION"
           bash deployment/scripts/update_lambda_versions.sh "$LAMBDA_ARTIFACT" "$JAVA_LAMBDA_VERSION"
 
-  build-frontend:
-    runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'frontend')
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22.15.0'
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install zip -y
-      - name: Build frontend
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd frontend
-          bash ../deployment/scripts/frontend_build.sh
-
   build-python-lambda:
     runs-on: ubuntu-latest
+    needs: build-java-lambda-sum
     if: contains(github.event.head_commit.message, 'python-lambda')
     permissions:
       contents: read
@@ -86,3 +68,24 @@ jobs:
           context: ./lambdas/python_lambda
           push: true
           tags: ghcr.io/${{ github.repository }}/python-lambda:latest
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    needs: build-python-lambda
+    if: contains(github.event.head_commit.message, 'frontend')
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.15.0'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install zip -y
+      - name: Build frontend
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd frontend
+          bash ../deployment/scripts/frontend_build.sh

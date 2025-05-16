@@ -1,2 +1,0 @@
-java-lambda-hello=1.0.5
-java-lambda-hello=1.0.7
