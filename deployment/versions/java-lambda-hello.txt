@@ -1,1 +1,0 @@
-java-lambda-hello=1.0.8
